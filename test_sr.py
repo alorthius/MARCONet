@@ -106,7 +106,7 @@ def main(L_path, save_path, manual_label, use_real_ocr, use_new_bbox):
             TextLQFillBG[:, :LQ.shape[-2], :] = TextLQFillBG[:, :LQ.shape[-2], :] + LQ
             LQ = TextLQFillBG
         else:
-            print(['\tLQ width is not normal... The width is larger than 512', LQ.shape])
+            print([f'SKIPPED {img_path} width is not normal... The width is larger than 512', LQ.shape])
             continue
 
         LQ = transforms.ToTensor()(LQ)
@@ -248,7 +248,9 @@ def main(L_path, save_path, manual_label, use_real_ocr, use_new_bbox):
 
         if len(pre_text) > 16:
             print('\tToo much characters. The max length is 16.')
-            continue
+            print("Stripping string")
+            pre_text = pre_text[:16]
+            labels = labels[:16]
 
         if len(pre_text) < 1:
             print('\tNo character is detected. Continue...')
@@ -311,7 +313,8 @@ def main(L_path, save_path, manual_label, use_real_ocr, use_new_bbox):
             ShowLocs[64:, max(0, y-padr):min(y+padr, img_max_width), 1] = ShowLocs[64:, max(0, y-padr):min(y+padr, img_max_width), 1]*0
             ShowLocs[:64, max(0, x-pad):min(x+pad, img_max_width), 2] = ShowLocs[:64, max(0, x-pad):min(x+pad, img_max_width), 2]*0
             ShowLocs[64:, max(0, y-padr):min(y+padr, img_max_width), 2] = ShowLocs[64:, max(0, y-padr):min(y+padr, img_max_width), 2]*0 + 255
-        cv2.imwrite(osp.join(save_path, img_basename+'_{}.png'.format(pre_text)), np.vstack((ShowLQ[:,:,::-1], ShowLocs[:,:,::-1], ShowSR, prior)))
+        # cv2.imwrite(osp.join(save_path, img_basename+'_{}.png'.format(pre_text)), np.vstack((ShowLQ[:,:,::-1], ShowLocs[:,:,::-1], ShowSR, prior)))
+        cv2.imwrite(osp.join(save_path, img_name), ShowSR)
         # exit('ss')
 
 
