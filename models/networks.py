@@ -9,8 +9,8 @@ warnings.filterwarnings('ignore')
 
 from basicsr.ops.fused_act import FusedLeakyReLU, fused_leaky_relu
 
-from models.textvit_arch import TextViT as TextEncoder
-from models.resnet import resnet45stride as resnet45
+from external.MARCONet.models.textvit_arch import TextViT as TextEncoder
+from external.MARCONet.models.resnet import resnet45stride as resnet45
 import torch.nn.utils.spectral_norm as SpectralNorm
 
 '''
