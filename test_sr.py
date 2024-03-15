@@ -4,9 +4,9 @@ import cv2
 import numpy as np
 import os.path as osp
 import time
-from models import networks, ocr
+from external.MARCONet.models import networks, ocr
 import torchvision.transforms as transforms
-from utils.alphabets import alphabet
+from external.MARCONet.utils.alphabets import alphabet
 import os
 import argparse
 import traceback
